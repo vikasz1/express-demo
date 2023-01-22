@@ -1,9 +1,32 @@
+const helmet = require("helmet");
+const config = require("config");
+const debug = require("debug")("app:startup");
+const morgan = require("morgan");
 const Joi = require("joi");
+const logger = require("./logger");
+const auth = require("./auth");
 const express = require("express");
 const res = require("express/lib/response");
 const app = express();
-
+//middleware1
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use(helmet());
+
+//configuration
+console.log("Application name:" + config.get("name"));
+console.log("Mail Server:" + config.get("mail.host"));
+console.log("Mail Password:" + config.get("mail.password"));
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny")); // only logs in dev environment(export NODE_ENV=development)
+  // console.log("morgan enabled...");
+  debug('Morgan enabled')
+}
+
+app.use(logger);
+app.use(auth);
 
 const courses = [
   { id: 1, name: "course1" },
