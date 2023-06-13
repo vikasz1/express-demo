@@ -1,3 +1,6 @@
 {
-    "name":"My Express App"
+    "name":"My Express App",
+    "mail":{
+        "password":"app_password"
+    }
 }
