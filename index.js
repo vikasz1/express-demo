@@ -35,7 +35,7 @@ const courses = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("Hello world!");
+  res.send("<h1>Go to /api/courses</h1> <h1>Select course using ID /api/courses/:id</h1>");
 });
 
 app.get("/api/courses", (req, res) => {
